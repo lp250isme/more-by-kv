@@ -39,5 +39,19 @@
       "en": "Turn any sentence into unreadable i18n-style numeronyms.",
       "zh": "把每個單字壓縮成 i18n 式縮寫，讓你完全看不懂。"
     }
+  },
+  {
+    "id": "acc",
+    "url": "https://accounting.kvcc.me/",
+    "icon": "https://accounting.kvcc.me/icon.png",
+    "iconDark": "https://accounting.kvcc.me/icon-dark.png",
+    "title": {
+      "en": "Split — Bill Splitting Calculator",
+      "zh": "Split — 分帳計算器"
+    },
+    "desc": {
+      "en": "Track group payments and settle up with the fewest transfers.",
+      "zh": "記錄多人付款，用最少轉帳次數算出誰該給誰多少錢。"
+    }
   }
 ]
