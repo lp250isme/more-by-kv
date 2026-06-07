@@ -1,0 +1,42 @@
+{
+  "name": "more-by-kv",
+  "version": "0.1.0",
+  "description": "Centralized \"More by kv\" cross-promo registry (works.json) + React glass card list component",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./works.json": "./dist/works.json",
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "esbuild src/index.jsx --bundle --external:react --format=esm --outdir=dist --out-extension:.js=.js --banner:js=\"'use client';\" && esbuild src/index.jsx --bundle --external:react --format=cjs --outdir=dist --out-extension:.js=.cjs --banner:js=\"'use client';\" && cp src/styles.css src/index.d.ts src/works.json dist/",
+    "prepare": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  },
+  "keywords": [
+    "cross-promo",
+    "react",
+    "liquid-glass"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lp250isme/more-by-kv.git"
+  },
+  "author": "kv",
+  "license": "MIT"
+}

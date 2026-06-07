@@ -1,0 +1,58 @@
+/* ============================================================
+   more-by-kv — cross-promo works list
+   Structural styles only. Colors come from the host app's
+   --lg-* design tokens (liquid-glass-kit convention); the card
+   glass material is the host's class (default `glass-chip`).
+   ============================================================ */
+.lg-works__heading {
+  margin: 0 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lg-label2, rgba(60, 60, 67, 0.6));
+  text-align: left;
+}
+.lg-works__card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.lg-works__card + .lg-works__card {
+  margin-top: 10px;
+}
+.lg-works__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.lg-works__text {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+.lg-works__title {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--lg-label, #000);
+}
+.lg-works__desc {
+  display: block;
+  font-size: 12px;
+  color: var(--lg-label2, rgba(60, 60, 67, 0.6));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lg-works__arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--lg-label2, rgba(60, 60, 67, 0.6));
+  flex-shrink: 0;
+}

@@ -1,0 +1,43 @@
+[
+  {
+    "id": "gtc",
+    "url": "https://gotoc.vercel.app/",
+    "icon": "https://gotoc.vercel.app/icon.png",
+    "iconDark": "https://gotoc.vercel.app/icon-dark.png",
+    "title": {
+      "en": "GTC — Maps Coordinate Converter",
+      "zh": "GTC — 地圖座標轉換"
+    },
+    "desc": {
+      "en": "Turn Google Maps links into coordinates, with Apple / Naver Maps shortcuts.",
+      "zh": "把 Google Maps 連結轉成座標，一鍵開 Apple / Naver 地圖。"
+    }
+  },
+  {
+    "id": "pcm",
+    "url": "https://playlist-cover-maker.vercel.app/",
+    "icon": "https://playlist-cover-maker.vercel.app/app-icon.png",
+    "title": {
+      "en": "Indigo — Playlist Cover Maker",
+      "zh": "Indigo — 歌單封面製作"
+    },
+    "desc": {
+      "en": "Design beautiful playlist covers with one-tap gallery themes.",
+      "zh": "設計漂亮的歌單封面，主題藝廊一鍵套用。"
+    }
+  },
+  {
+    "id": "a2o",
+    "url": "https://a2o-i18n.vercel.app/",
+    "icon": "https://a2o-i18n.vercel.app/icon.png",
+    "iconDark": "https://a2o-i18n.vercel.app/icon-dark.png",
+    "title": {
+      "en": "a2o — i18n Numeronym Generator",
+      "zh": "a2o — i18n 縮寫產生器"
+    },
+    "desc": {
+      "en": "Turn any sentence into unreadable i18n-style numeronyms.",
+      "zh": "把每個單字壓縮成 i18n 式縮寫，讓你完全看不懂。"
+    }
+  }
+]
