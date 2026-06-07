@@ -1,9 +1,9 @@
 [
   {
     "id": "gtc",
-    "url": "https://gotoc.vercel.app/",
-    "icon": "https://gotoc.vercel.app/icon.png",
-    "iconDark": "https://gotoc.vercel.app/icon-dark.png",
+    "url": "https://gtc.kvcc.me/",
+    "icon": "https://gtc.kvcc.me/icon.png",
+    "iconDark": "https://gtc.kvcc.me/icon-dark.png",
     "title": {
       "en": "GTC — Maps Coordinate Converter",
       "zh": "GTC — 地圖座標轉換"
@@ -15,8 +15,8 @@
   },
   {
     "id": "pcm",
-    "url": "https://playlist-cover-maker.vercel.app/",
-    "icon": "https://playlist-cover-maker.vercel.app/app-icon.png",
+    "url": "https://indigo.kvcc.me/",
+    "icon": "https://indigo.kvcc.me/app-icon.png",
     "title": {
       "en": "Indigo — Playlist Cover Maker",
       "zh": "Indigo — 歌單封面製作"
@@ -28,9 +28,9 @@
   },
   {
     "id": "a2o",
-    "url": "https://a2o-i18n.vercel.app/",
-    "icon": "https://a2o-i18n.vercel.app/icon.png",
-    "iconDark": "https://a2o-i18n.vercel.app/icon-dark.png",
+    "url": "https://a2o.kvcc.me/",
+    "icon": "https://a2o.kvcc.me/icon.png",
+    "iconDark": "https://a2o.kvcc.me/icon-dark.png",
     "title": {
       "en": "a2o — i18n Numeronym Generator",
       "zh": "a2o — i18n 縮寫產生器"
