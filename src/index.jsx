@@ -30,12 +30,15 @@ export default function MoreByKv({
 }) {
     const list = works.filter(w => !exclude.includes(w.id));
     if (list.length === 0) return null;
-    const pick = obj => obj[lang] ?? obj.en;
+    // 容錯各種中文代碼：'zh-TW' / 'zh-Hant' / 'zh_CN' → 'zh'，其餘 fallback 'en'。
+    // 先試 exact key（未來 registry 若加其他語言仍可直配），再試正規化值。
+    const norm = String(lang).toLowerCase().startsWith('zh') ? 'zh' : 'en';
+    const pick = obj => obj[lang] ?? obj[norm] ?? obj.en;
 
     return (
         <div className={`lg-works ${className}`} {...props}>
             <p className="lg-works__heading">
-                {heading ?? HEADINGS[lang] ?? HEADINGS.en}
+                {heading ?? HEADINGS[lang] ?? HEADINGS[norm]}
             </p>
             {list.map(w => (
                 <a
@@ -49,6 +52,8 @@ export default function MoreByKv({
                         className="lg-works__icon"
                         src={theme === 'dark' && w.iconDark ? w.iconDark : w.icon}
                         alt={pick(w.title)}
+                        loading="lazy"
+                        decoding="async"
                     />
                     <span className="lg-works__text">
                         <span className="lg-works__title">{pick(w.title)}</span>
