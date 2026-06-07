@@ -1,5 +1,18 @@
 [
   {
+    "id": "kvcc",
+    "url": "https://kvcc.me/",
+    "icon": "https://kvcc.me/apple-icon",
+    "title": {
+      "en": "kvcc.me — Personal Hub",
+      "zh": "kvcc.me — 個人主頁"
+    },
+    "desc": {
+      "en": "All works, socials and links in one place.",
+      "zh": "所有作品、社群與連結都在這裡。"
+    }
+  },
+  {
     "id": "gtc",
     "url": "https://gtc.kvcc.me/",
     "icon": "https://gtc.kvcc.me/icon.png",
