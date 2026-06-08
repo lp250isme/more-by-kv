@@ -14,6 +14,11 @@ const HEADINGS = { en: 'More by kv', zh: 'kv 的其他作品' };
  * Pass `exclude` (array of work ids) to hide entries — typically the app
  * rendering the list excludes itself: <MoreByKv exclude={['gtc']} />.
  *
+ * Pass `hrefTransform` (work => string) to rewrite each card's destination —
+ * e.g. route clicks through a personal URL shortener for analytics:
+ *   <MoreByKv hrefTransform={w => `https://go.kvcc.me/${w.id}`} />
+ * Defaults to the registry url, so apps that omit it are unaffected.
+ *
  * Styling: import 'more-by-kv/styles.css' once. The structural classes use
  * the host app's `--lg-*` design tokens (liquid-glass-kit convention), and
  * the default card material is the host's `glass-chip` class — override via
@@ -25,6 +30,7 @@ export default function MoreByKv({
     theme = 'light',
     heading,
     cardClassName = 'glass-chip',
+    hrefTransform,
     className = '',
     ...props
 }) {
@@ -44,7 +50,7 @@ export default function MoreByKv({
                 <a
                     key={w.id}
                     className={`${cardClassName} lg-works__card`}
-                    href={w.url}
+                    href={hrefTransform ? hrefTransform(w) : w.url}
                     target="_blank"
                     rel="noopener noreferrer"
                 >

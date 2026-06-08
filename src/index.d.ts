@@ -22,6 +22,9 @@ export interface MoreByKvProps extends React.HTMLAttributes<HTMLDivElement> {
     heading?: string;
     /** Glass material class for each card (default 'glass-chip'). */
     cardClassName?: string;
+    /** Rewrite each card's destination url (e.g. route via a URL shortener).
+     *  Defaults to the registry url. */
+    hrefTransform?: (work: Work) => string;
 }
 
 export declare function MoreByKv(props: MoreByKvProps): React.JSX.Element | null;
