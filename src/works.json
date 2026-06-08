@@ -13,6 +13,20 @@
     }
   },
   {
+    "id": "ifv",
+    "url": "https://chromewebstore.google.com/detail/iqiyi-full-view/jckmlmoecnlmenhepfdhnfpegecjodlm",
+    "icon": "https://cdn.jsdelivr.net/gh/lp250isme/iQIYI-Full-View@main/promo/icon.png",
+    "iconDark": "https://cdn.jsdelivr.net/gh/lp250isme/iQIYI-Full-View@main/promo/icon-dark.png",
+    "title": {
+      "en": "iQIYI Full View — Chrome Extension",
+      "zh": "iQIYI Full View — Chrome 擴充功能"
+    },
+    "desc": {
+      "en": "Press F to expand the iQIYI player to fill the window.",
+      "zh": "按 F 把愛奇藝播放器放大到整個視窗，不用進全螢幕。"
+    }
+  },
+  {
     "id": "gtc",
     "url": "https://gtc.kvcc.me/",
     "icon": "https://gtc.kvcc.me/icon.png",
@@ -65,20 +79,6 @@
     "desc": {
       "en": "Track group payments and settle up with the fewest transfers.",
       "zh": "記錄多人付款，用最少轉帳次數算出誰該給誰多少錢。"
-    }
-  },
-  {
-    "id": "ifv",
-    "url": "https://chromewebstore.google.com/detail/iqiyi-full-view/jckmlmoecnlmenhepfdhnfpegecjodlm",
-    "icon": "https://cdn.jsdelivr.net/gh/lp250isme/iQIYI-Full-View@main/promo/icon.png",
-    "iconDark": "https://cdn.jsdelivr.net/gh/lp250isme/iQIYI-Full-View@main/promo/icon-dark.png",
-    "title": {
-      "en": "iQIYI Full View — Chrome Extension",
-      "zh": "iQIYI Full View — Chrome 擴充功能"
-    },
-    "desc": {
-      "en": "Press F to expand the iQIYI player to fill the window.",
-      "zh": "按 F 把愛奇藝播放器放大到整個視窗，不用進全螢幕。"
     }
   }
 ]

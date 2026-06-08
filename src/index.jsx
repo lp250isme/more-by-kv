@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import works from './works.json';
 
 const HEADINGS = { en: 'More by kv', zh: 'kv 的其他作品' };
+
+// 註冊表的線上單一真實來源。runtime 抓這個 → 編輯 works.json push 後,
+// 各 app 下次載入自動跟上,免 bump SHA / 免重裝。bundled works 當即時 fallback。
+const REGISTRY_URL =
+    'https://cdn.jsdelivr.net/gh/lp250isme/more-by-kv@main/src/works.json';
+
+/** 依 order(id 陣列)排序:列到的照給定順序在前,沒列到的維持註冊表原序接在後面。 */
+function applyOrder(list, order) {
+    if (!Array.isArray(order) || order.length === 0) return list;
+    const rank = new Map(order.map((id, i) => [id, i]));
+    return [...list].sort(
+        (a, b) =>
+            (rank.has(a.id) ? rank.get(a.id) : order.length + 1) -
+            (rank.has(b.id) ? rank.get(b.id) : order.length + 1)
+    );
+}
 
 /**
  * Cross-promo "More by kv" card list.
@@ -31,10 +47,31 @@ export default function MoreByKv({
     heading,
     cardClassName = 'glass-chip',
     hrefTransform,
+    order,
+    registryUrl = REGISTRY_URL,
     className = '',
     ...props
 }) {
-    const list = works.filter(w => !exclude.includes(w.id));
+    // bundled works = 首屏/SSR 即時內容;掛載後抓線上註冊表覆蓋(失敗就維持 bundled)
+    const [registry, setRegistry] = useState(works);
+    useEffect(() => {
+        if (!registryUrl) return;
+        let alive = true;
+        fetch(registryUrl)
+            .then(r => (r.ok ? r.json() : null))
+            .then(d => {
+                if (alive && Array.isArray(d) && d.length) setRegistry(d);
+            })
+            .catch(() => {});
+        return () => {
+            alive = false;
+        };
+    }, [registryUrl]);
+
+    const list = applyOrder(
+        registry.filter(w => !exclude.includes(w.id)),
+        order
+    );
     if (list.length === 0) return null;
     // 容錯各種中文代碼：'zh-TW' / 'zh-Hant' / 'zh_CN' → 'zh'，其餘 fallback 'en'。
     // 先試 exact key（未來 registry 若加其他語言仍可直配），再試正規化值。

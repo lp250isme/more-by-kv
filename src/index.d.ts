@@ -25,6 +25,13 @@ export interface MoreByKvProps extends React.HTMLAttributes<HTMLDivElement> {
     /** Rewrite each card's destination url (e.g. route via a URL shortener).
      *  Defaults to the registry url. */
     hrefTransform?: (work: Work) => string;
+    /** Order work ids first (in this order); unlisted keep registry order
+     *  after. Lets a host reorder without editing the registry — e.g. wire to
+     *  an admin-editable array. */
+    order?: string[];
+    /** URL to fetch the live registry from at runtime (bundled copy is the
+     *  fallback). Pass null to disable and use only the bundled registry. */
+    registryUrl?: string | null;
 }
 
 export declare function MoreByKv(props: MoreByKvProps): React.JSX.Element | null;
