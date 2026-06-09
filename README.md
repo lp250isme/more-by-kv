@@ -8,7 +8,7 @@
 
 Centralized **"More by kv"** cross-promo for all of kv's apps: a single registry (`works.json`) plus a React glass card list component. Update the registry once — every consuming app follows on its next install/deploy.
 
-Currently listed: [GTC](https://gtc.kvcc.me/) · [Indigo](https://indigo.kvcc.me/) · [a2o](https://a2o.kvcc.me/)
+Currently listed: [kvcc](https://kvcc.me/) · iQIYI Full View · [GTC](https://gtc.kvcc.me/) · [Indigo](https://indigo.kvcc.me/) · [a2o](https://a2o.kvcc.me/) · [Split](https://accounting.kvcc.me/)
 
 ### Install
 
@@ -71,7 +71,7 @@ Commit, push — done. Apps pick it up on their next deploy (or immediately for 
 
 集中管理所有 kv 作品的**「kv 的其他作品」**互推卡片：單一註冊表（`works.json`）+ React 玻璃卡片元件。**註冊表只改一次**，所有 app 在下次安裝/部署時自動跟上。
 
-目前收錄：[GTC](https://gtc.kvcc.me/) · [Indigo](https://indigo.kvcc.me/) · [a2o](https://a2o.kvcc.me/)
+目前收錄：[kvcc](https://kvcc.me/) · iQIYI Full View · [GTC](https://gtc.kvcc.me/) · [Indigo](https://indigo.kvcc.me/) · [a2o](https://a2o.kvcc.me/) · [Split](https://accounting.kvcc.me/)
 
 ### 安裝
 
