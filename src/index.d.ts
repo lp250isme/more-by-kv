@@ -32,6 +32,9 @@ export interface MoreByKvProps extends React.HTMLAttributes<HTMLDivElement> {
     /** URL to fetch the live registry from at runtime (bundled copy is the
      *  fallback). Pass null to disable and use only the bundled registry. */
     registryUrl?: string | null;
+    /** 'list' (default) stacks full-width rows; 'gallery' renders a
+     *  horizontal snap-scroll row of compact upright cards. */
+    layout?: 'list' | 'gallery';
 }
 
 export declare function MoreByKv(props: MoreByKvProps): React.JSX.Element | null;
