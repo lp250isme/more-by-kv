@@ -35,6 +35,10 @@ export interface MoreByKvProps extends React.HTMLAttributes<HTMLDivElement> {
     /** 'list' (default) stacks full-width rows; 'gallery' renders a
      *  horizontal snap-scroll row of compact upright cards. */
     layout?: 'list' | 'gallery';
+    /** Gallery only: rotate one card every N seconds (0 = off). Pauses on
+     *  hover, for 8s after touch/wheel/press, while the tab is hidden, and
+     *  entirely under prefers-reduced-motion. */
+    autoAdvance?: number;
 }
 
 export declare function MoreByKv(props: MoreByKvProps): React.JSX.Element | null;

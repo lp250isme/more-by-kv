@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import works from './works.json';
 
 const HEADINGS = { en: 'More by kv', zh: 'kv 的其他作品' };
@@ -40,6 +40,11 @@ function applyOrder(list, order) {
  * stacked list — half a card peeks past the edge to hint at more. Hosts
  * that want edge-bleed can override `.lg-works__row` margins.
  *
+ * Pass `autoAdvance={seconds}` (gallery only) to rotate one card at a
+ * time on a timer, wrapping back to the start. It yields to the user:
+ * paused while hovering, for 8s after any touch/wheel/press, while the
+ * tab is hidden, and entirely under prefers-reduced-motion.
+ *
  * Styling: import 'more-by-kv/styles.css' once. The structural classes use
  * the host app's `--lg-*` design tokens (liquid-glass-kit convention), and
  * the default card material is the host's `glass-chip` class — override via
@@ -54,6 +59,7 @@ export default function MoreByKv({
     hrefTransform,
     order,
     layout = 'list',
+    autoAdvance = 0,
     registryUrl = REGISTRY_URL,
     className = '',
     ...props
@@ -78,13 +84,65 @@ export default function MoreByKv({
         registry.filter(w => !exclude.includes(w.id)),
         order
     );
+    const gallery = layout === 'gallery';
+
+    // Timed rotation (gallery only). Lives on the scroller so manual
+    // swipes/momentum just work — we only nudge scrollLeft between them.
+    // (Hooks stay above the empty-list early return.)
+    const rowRef = useRef(null);
+    useEffect(() => {
+        if (!gallery || !autoAdvance) return;
+        const el = rowRef.current;
+        if (!el) return;
+        if (
+            typeof window.matchMedia === 'function' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        )
+            return;
+        let pausedUntil = 0;
+        let hovering = false;
+        const rest = () => {
+            pausedUntil = Date.now() + 8000;
+        };
+        const enter = () => {
+            hovering = true;
+        };
+        const leave = () => {
+            hovering = false;
+        };
+        el.addEventListener('pointerdown', rest);
+        el.addEventListener('wheel', rest, { passive: true });
+        el.addEventListener('touchstart', rest, { passive: true });
+        el.addEventListener('pointerenter', enter);
+        el.addEventListener('pointerleave', leave);
+        const id = setInterval(() => {
+            if (hovering || Date.now() < pausedUntil || document.hidden) return;
+            const max = el.scrollWidth - el.clientWidth;
+            if (max <= 0) return; // everything fits — nothing to rotate
+            const step =
+                el.children.length > 1
+                    ? el.children[1].offsetLeft - el.children[0].offsetLeft
+                    : el.clientWidth;
+            const next =
+                el.scrollLeft >= max - 4 ? 0 : Math.min(el.scrollLeft + step, max);
+            el.scrollTo({ left: next, behavior: 'smooth' });
+        }, autoAdvance * 1000);
+        return () => {
+            clearInterval(id);
+            el.removeEventListener('pointerdown', rest);
+            el.removeEventListener('wheel', rest);
+            el.removeEventListener('touchstart', rest);
+            el.removeEventListener('pointerenter', enter);
+            el.removeEventListener('pointerleave', leave);
+        };
+    }, [gallery, autoAdvance, list.length]);
+
     if (list.length === 0) return null;
     // 容錯各種中文代碼：'zh-TW' / 'zh-Hant' / 'zh_CN' → 'zh'，其餘 fallback 'en'。
     // 先試 exact key（未來 registry 若加其他語言仍可直配），再試正規化值。
     const norm = String(lang).toLowerCase().startsWith('zh') ? 'zh' : 'en';
     const pick = obj => obj[lang] ?? obj[norm] ?? obj.en;
 
-    const gallery = layout === 'gallery';
     const cards = list.map(w => (
         <a
             key={w.id}
@@ -128,7 +186,13 @@ export default function MoreByKv({
             <p className="lg-works__heading">
                 {heading ?? HEADINGS[lang] ?? HEADINGS[norm]}
             </p>
-            {gallery ? <div className="lg-works__row">{cards}</div> : cards}
+            {gallery ? (
+                <div className="lg-works__row" ref={rowRef}>
+                    {cards}
+                </div>
+            ) : (
+                cards
+            )}
         </div>
     );
 }
