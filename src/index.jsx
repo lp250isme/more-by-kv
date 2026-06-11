@@ -35,10 +35,11 @@ function applyOrder(list, order) {
  *   <MoreByKv hrefTransform={w => `https://go.kvcc.me/${w.id}`} />
  * Defaults to the registry url, so apps that omit it are unaffected.
  *
- * Pass `layout="gallery"` for a horizontal snap-scroll row of compact
+ * Pass `layout="gallery"` for a horizontal center-snap carousel of compact
  * upright cards (icon on top, clamped title/desc) instead of the default
- * stacked list — half a card peeks past the edge to hint at more. Hosts
- * that want edge-bleed can override `.lg-works__row` margins.
+ * stacked list — opens with the first card centered, neighbours peeking at
+ * both edges. Hosts that want edge-bleed can override `.lg-works__row`
+ * margins; card width via `--mbk-card-w`.
  *
  * Pass `autoAdvance={seconds}` (gallery only) to rotate one card at a
  * time on a timer, wrapping back to the start. It yields to the user:

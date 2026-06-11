@@ -57,26 +57,29 @@
   flex-shrink: 0;
 }
 
-/* ---- layout="gallery": horizontal snap-scroll row of upright cards ---- */
+/* ---- layout="gallery": horizontal snap-scroll row of upright cards ----
+   Center-snap carousel: the inline padding parks the first/last card in
+   the middle of the row, so scrollLeft 0 opens with card #1 centered. */
 .lg-works__row {
+  --mbk-card-w: 148px;
   display: flex;
   gap: 10px;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x proximity;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  /* breathing room so hover-lift shadows aren't clipped by overflow */
-  padding: 2px 2px 6px;
+  /* top/bottom breathing room so hover-lift shadows aren't clipped */
+  padding: 2px calc(50% - var(--mbk-card-w) / 2) 6px;
 }
 .lg-works__row::-webkit-scrollbar {
   display: none;
 }
 .lg-works__card--gallery {
-  flex: 0 0 148px;
+  flex: 0 0 var(--mbk-card-w);
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   position: relative;
 }
 .lg-works--gallery .lg-works__card + .lg-works__card {
