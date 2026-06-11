@@ -38,8 +38,10 @@ function applyOrder(list, order) {
  * Pass `layout="gallery"` for a horizontal center-snap carousel of compact
  * upright cards (icon on top, clamped title/desc) instead of the default
  * stacked list — opens with the first card centered, neighbours peeking at
- * both edges. Hosts that want edge-bleed can override `.lg-works__row`
- * margins; card width via `--mbk-card-w`.
+ * both edges. With 3+ works it wraps seamlessly (three rendered copies,
+ * scroll re-centred while idle; clones are aria-hidden). Hosts that want
+ * edge-bleed can override `.lg-works__row` margins; card width via
+ * `--mbk-card-w`.
  *
  * Pass `autoAdvance={seconds}` (gallery only) to rotate one card at a
  * time on a timer, wrapping back to the start. It yields to the user:
@@ -86,11 +88,48 @@ export default function MoreByKv({
         order
     );
     const gallery = layout === 'gallery';
+    // Seamless wrap-around: render three copies, live in the middle one.
+    // Opens with card #1 centered AND the last card peeking on the left —
+    // no empty gutter. Clone copies are aria-hidden / untabbable.
+    const loop = gallery && list.length >= 3;
+    const n = list.length;
+
+    const rowRef = useRef(null);
+
+    /** Width of one full copy (card n's offset from card 0). */
+    const copyWidth = el =>
+        el.children[n] ? el.children[n].offsetLeft - el.children[0].offsetLeft : 0;
+
+    // Start in the middle copy, and whenever scrolling settles outside it,
+    // jump back by exactly one copy — identical pixels, so it's invisible.
+    useEffect(() => {
+        if (!loop) return;
+        const el = rowRef.current;
+        if (!el) return;
+        const w = copyWidth(el);
+        if (w > 0) el.scrollLeft = w;
+        let t;
+        const normalize = () => {
+            const cw = copyWidth(el);
+            if (cw <= 0) return;
+            if (el.scrollLeft < cw * 0.5) el.scrollLeft += cw;
+            else if (el.scrollLeft > cw * 1.5) el.scrollLeft -= cw;
+        };
+        const onScroll = () => {
+            clearTimeout(t);
+            t = setTimeout(normalize, 120); // after smooth/momentum settles
+        };
+        el.addEventListener('scroll', onScroll, { passive: true });
+        return () => {
+            clearTimeout(t);
+            el.removeEventListener('scroll', onScroll);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loop, n]);
 
     // Timed rotation (gallery only). Lives on the scroller so manual
     // swipes/momentum just work — we only nudge scrollLeft between them.
     // (Hooks stay above the empty-list early return.)
-    const rowRef = useRef(null);
     useEffect(() => {
         if (!gallery || !autoAdvance) return;
         const el = rowRef.current;
@@ -124,8 +163,13 @@ export default function MoreByKv({
                 el.children.length > 1
                     ? el.children[1].offsetLeft - el.children[0].offsetLeft
                     : el.clientWidth;
-            const next =
-                el.scrollLeft >= max - 4 ? 0 : Math.min(el.scrollLeft + step, max);
+            // Looping rows just keep going right (normalize re-centres);
+            // finite rows wrap back to the start at the end.
+            const next = loop
+                ? el.scrollLeft + step
+                : el.scrollLeft >= max - 4
+                  ? 0
+                  : Math.min(el.scrollLeft + step, max);
             el.scrollTo({ left: next, behavior: 'smooth' });
         }, autoAdvance * 1000);
         return () => {
@@ -136,7 +180,7 @@ export default function MoreByKv({
             el.removeEventListener('pointerenter', enter);
             el.removeEventListener('pointerleave', leave);
         };
-    }, [gallery, autoAdvance, list.length]);
+    }, [gallery, autoAdvance, loop, list.length]);
 
     if (list.length === 0) return null;
     // 容錯各種中文代碼：'zh-TW' / 'zh-Hant' / 'zh_CN' → 'zh'，其餘 fallback 'en'。
@@ -144,40 +188,49 @@ export default function MoreByKv({
     const norm = String(lang).toLowerCase().startsWith('zh') ? 'zh' : 'en';
     const pick = obj => obj[lang] ?? obj[norm] ?? obj.en;
 
-    const cards = list.map(w => (
-        <a
-            key={w.id}
-            className={`${cardClassName} lg-works__card${gallery ? ' lg-works__card--gallery' : ''}`}
-            href={hrefTransform ? hrefTransform(w) : w.url}
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            <img
-                className="lg-works__icon"
-                src={theme === 'dark' && w.iconDark ? w.iconDark : w.icon}
-                alt={pick(w.title)}
-                loading="lazy"
-                decoding="async"
-            />
-            <span className="lg-works__text">
-                <span className="lg-works__title">{pick(w.title)}</span>
-                <span className="lg-works__desc">{pick(w.desc)}</span>
-            </span>
-            <svg
-                className="lg-works__arrow"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
+    const renderCard = (w, copy) => {
+        const clone = copy !== 1; // only the middle copy is "real"
+        return (
+            <a
+                key={`${copy}:${w.id}`}
+                className={`${cardClassName} lg-works__card${gallery ? ' lg-works__card--gallery' : ''}`}
+                href={hrefTransform ? hrefTransform(w) : w.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-hidden={clone || undefined}
+                tabIndex={clone ? -1 : undefined}
             >
-                <line x1="7" y1="17" x2="17" y2="7" />
-                <polyline points="7 7 17 7 17 17" />
-            </svg>
-        </a>
-    ));
+                <img
+                    className="lg-works__icon"
+                    src={theme === 'dark' && w.iconDark ? w.iconDark : w.icon}
+                    alt={clone ? '' : pick(w.title)}
+                    loading="lazy"
+                    decoding="async"
+                />
+                <span className="lg-works__text">
+                    <span className="lg-works__title">{pick(w.title)}</span>
+                    <span className="lg-works__desc">{pick(w.desc)}</span>
+                </span>
+                <svg
+                    className="lg-works__arrow"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                </svg>
+            </a>
+        );
+    };
+
+    const cards = loop
+        ? [0, 1, 2].flatMap(copy => list.map(w => renderCard(w, copy)))
+        : list.map(w => renderCard(w, 1));
 
     return (
         <div
