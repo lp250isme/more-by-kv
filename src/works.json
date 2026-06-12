@@ -80,5 +80,19 @@
       "en": "Track group payments and settle up with the fewest transfers.",
       "zh": "記錄多人付款，用最少轉帳次數算出誰該給誰多少錢。"
     }
+  },
+  {
+    "id": "ip",
+    "url": "https://ip.kvcc.me/",
+    "icon": "https://ip.kvcc.me/icon.png",
+    "iconDark": "https://ip.kvcc.me/icon-dark.png",
+    "title": {
+      "en": "ip — Connection Info Echo",
+      "zh": "ip — 連線資訊回顯"
+    },
+    "desc": {
+      "en": "Your IP, geo, ASN, TLS and headers on one page. curl-friendly, zero storage.",
+      "zh": "IP、地理、ASN、TLS、headers 一頁看清楚，curl 直接用、零儲存。"
+    }
   }
 ]
