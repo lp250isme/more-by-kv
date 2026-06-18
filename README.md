@@ -1,4 +1,6 @@
-# more-by-kv
+<p align="center">
+  <img src="assets/icon-dark.png" alt="more-by-kv" width="120" height="120">
+</p># more-by-kv
 
 [English](#english) | [繁體中文](#繁體中文)
 
