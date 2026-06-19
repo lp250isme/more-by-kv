@@ -13,20 +13,6 @@
     }
   },
   {
-    "id": "tw-live",
-    "url": "https://live.kvcc.me/",
-    "icon": "https://live.kvcc.me/icon.png",
-    "iconDark": "https://live.kvcc.me/icon-dark.png",
-    "title": {
-      "en": "TW Live — Open Data Console",
-      "zh": "台灣即時 — 開放資料戰情室"
-    },
-    "desc": {
-      "en": "Taiwan's government open data, live: reservoirs, air, weather, transit.",
-      "zh": "台灣政府開放資料即時看板：水庫、空品、天氣、交通。"
-    }
-  },
-  {
     "id": "ifv",
     "url": "https://chromewebstore.google.com/detail/iqiyi-full-view/jckmlmoecnlmenhepfdhnfpegecjodlm",
     "icon": "https://cdn.jsdelivr.net/gh/lp250isme/iQIYI-Full-View@main/promo/icon.png",
