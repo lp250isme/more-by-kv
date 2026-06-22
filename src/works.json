@@ -13,6 +13,20 @@
     }
   },
   {
+    "id": "weather",
+    "url": "https://weather.kvcc.me/",
+    "icon": "https://weather.kvcc.me/icon.png",
+    "iconDark": "https://weather.kvcc.me/icon-dark.png",
+    "title": {
+      "en": "Weather — Live Forecast",
+      "zh": "Weather — 即時天氣預報"
+    },
+    "desc": {
+      "en": "Local weather with hourly, 10-day and rich Apple-style detail cards.",
+      "zh": "你所在地的天氣，逐時、10 天與可點開的豐富詳細卡。"
+    }
+  },
+  {
     "id": "ifv",
     "url": "https://chromewebstore.google.com/detail/iqiyi-full-view/jckmlmoecnlmenhepfdhnfpegecjodlm",
     "icon": "https://cdn.jsdelivr.net/gh/lp250isme/iQIYI-Full-View@main/promo/icon.png",
