@@ -18,8 +18,8 @@
     "icon": "https://weather.kvcc.me/icon.png",
     "iconDark": "https://weather.kvcc.me/icon-dark.png",
     "title": {
-      "en": "Weather — Live Forecast",
-      "zh": "Weather — 即時天氣預報"
+      "en": "Zky — Live Weather",
+      "zh": "Zky — 即時天氣預報"
     },
     "desc": {
       "en": "Local weather with hourly, 10-day and rich Apple-style detail cards.",
