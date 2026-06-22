@@ -13,10 +13,10 @@
     }
   },
   {
-    "id": "weather",
-    "url": "https://weather.kvcc.me/",
-    "icon": "https://weather.kvcc.me/icon.png",
-    "iconDark": "https://weather.kvcc.me/icon-dark.png",
+    "id": "zky",
+    "url": "https://zky.kvcc.me/",
+    "icon": "https://zky.kvcc.me/icon.png",
+    "iconDark": "https://zky.kvcc.me/icon-dark.png",
     "title": {
       "en": "Zky — Live Weather",
       "zh": "Zky — 即時天氣預報"
