@@ -20,13 +20,16 @@
   ],
   "scripts": {
     "build": "esbuild src/index.jsx --bundle --external:react --format=esm --outdir=dist --out-extension:.js=.js --banner:js=\"'use client';\" && esbuild src/index.jsx --bundle --external:react --format=cjs --outdir=dist --out-extension:.js=.cjs --banner:js=\"'use client';\" && cp src/styles.css src/index.d.ts src/works.json dist/",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "node scripts/run-tests.mjs"
   },
   "peerDependencies": {
     "react": ">=18"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "esbuild": "^0.24.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "keywords": [
     "cross-promo",
